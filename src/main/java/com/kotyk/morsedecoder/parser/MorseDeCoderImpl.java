@@ -4,7 +4,17 @@ public class MorseDeCoderImpl extends MorseDeCoder {
 
     @Override
     public String parseToText(String morse) {
-        return null;
+        try {
+            String[] morses = morse.trim().split(" ");
+            StringBuilder text = new StringBuilder();
+            for (String mors : morses) {
+                if (getLetterValue(mors) == null) continue;
+                text.append(getLetterValue(mors));
+            }
+            return text.toString();
+        } catch (NullPointerException e) {
+            return "bad morse";
+        }
     }
 
     @Override
@@ -13,8 +23,8 @@ public class MorseDeCoderImpl extends MorseDeCoder {
             text = text.trim().toLowerCase();
             StringBuilder morse = new StringBuilder();
             for (int i = 0; i < text.length(); ++i) {
-                if (getValue(text.charAt(i)) == null) continue;
-                morse.append(getValue(text.charAt(i))).append(" ");
+                if (getMorseValue(text.charAt(i)) == null) continue;
+                morse.append(getMorseValue(text.charAt(i))).append(" ");
             }
             return morse.toString();
         } catch (NullPointerException e) {
